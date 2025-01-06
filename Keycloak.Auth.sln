@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keycloak.Auth.Api", "Keycloak.Auth.Api\Keycloak.Auth.Api.csproj", "{0719A48B-1857-4666-9F06-BF152911059D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0719A48B-1857-4666-9F06-BF152911059D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0719A48B-1857-4666-9F06-BF152911059D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0719A48B-1857-4666-9F06-BF152911059D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0719A48B-1857-4666-9F06-BF152911059D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
