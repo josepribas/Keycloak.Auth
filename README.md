@@ -1,13 +1,13 @@
 # Keycloak.Auth.Api
 
-This project is an ASP.NET Core Web API that integrates with Keycloak for authentication and authorization.
+This project is an ASP.NET Core Web API that integrates with Keycloak for authentication and authorization.  
 Code from following Milan Jovanovic video: https://www.youtube.com/watch?v=Blrn5JyAl6E 
 
 ## Getting Started
 
 ### Prerequisites
 
-- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Keycloak](https://www.keycloak.org/downloads)
 
 ### Configuration
