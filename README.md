@@ -1,8 +1,7 @@
-
-```markdown
 # Keycloak.Auth.Api
 
 This project is an ASP.NET Core Web API that integrates with Keycloak for authentication and authorization.
+Code from following Milan Jovanovic video: https://www.youtube.com/watch?v=Blrn5JyAl6E 
 
 ## Getting Started
 
@@ -48,4 +47,3 @@ Swagger is enabled in development mode. You can access it at `/swagger`.
 ## License
 
 This project is licensed under the MIT License.
-```
