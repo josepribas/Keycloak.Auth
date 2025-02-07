@@ -8,7 +8,7 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 var authUrl = builder.Configuration["Keycloak:AuthorizationUrl"] 
-              ?? "https://localhost:8080/auth/realms/demo-realm/protocol/openid-connect/auth";
+              ?? "https://gsefact.girosystem.com:8433/auth/realms/gsEFact/protocol/openid-connect/auth";
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen( c =>
@@ -24,11 +24,12 @@ builder.Services.AddSwaggerGen( c =>
         {
             Implicit = new OpenApiOAuthFlow
             {
-                AuthorizationUrl = new Uri(authUrl),
+                AuthorizationUrl = new Uri("https://gsefact.girosystem.com:8443/realms/gsEFact/protocol/openid-connect/auth"),
+                TokenUrl = new Uri("https://gsefact.girosystem.com:8443/realms/gsEFact/protocol/openid-connect/token"),
                 Scopes = new Dictionary<string, string>
                 {
-                    { "openid", "openid" },
-                    { "profile", "profile" }
+                    { "openid", "Access your information" },
+                    { "profile", "Access your profile" }
                 }
             }
         }
@@ -60,22 +61,36 @@ builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.RequireHttpsMetadata = false;
+        options.RequireHttpsMetadata = false; // Posar-ho a true en entorns de producció
+        options.Authority = builder.Configuration["Authentication:Authority"];
         options.Audience = builder.Configuration["Authentication:Audience"];
-        options.MetadataAddress = builder.Configuration["Authentication:MetadataAddress"] ?? string.Empty;
+        
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidIssuer = builder.Configuration["Authentication:ValidIssuer"],
+            ValidIssuer = builder.Configuration["Authentication:ValidIssuer"] ?? $"{builder.Configuration["Authentication:Authority"]}/realms/gsEFact",
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true
         };
     });
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+//    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.OAuthClientId("frontend-spa");
+        c.OAuthAppName("My API - Swagger");
+        c.OAuthUsePkce(); 
+    });
+//}
+
+app.UseHttpsRedirection();
 
 app.MapGet("users/me", (ClaimsPrincipal claimsPrincipal) =>
 {
